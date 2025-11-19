@@ -1,4 +1,3 @@
-# apis/cliente_api.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 import schemas
@@ -7,12 +6,10 @@ from database import get_db
 
 router = APIRouter()
 
-# Crear un cliente
 @router.post("/clientes/", response_model=schemas.Cliente)
 def create_cliente(cliente: schemas.ClienteCreate, db: Session = Depends(get_db)):
     return cliente_service.create_cliente(db=db, cliente=cliente)
 
-# Obtener todos los clientes
 @router.get("/clientes/", response_model=list[schemas.Cliente])
 def read_clientes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     clientes = cliente_service.get_clientes(db, skip=skip, limit=limit)
